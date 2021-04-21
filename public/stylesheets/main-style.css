@@ -1,0 +1,91 @@
+:root {
+  --text: #333;
+  --bg: #e8e8e8;
+  --bg2: #eee;
+  --bg3: #ccc;
+
+  --primary: #38c;
+  --secondary: #888;
+
+  --success: #3c8;
+  --danger: #c38;
+  --warning: #c83;
+  --link: #83c;
+
+  --light: #fff;
+  --dark: #333;
+
+  --disabled: #aaa;
+}
+
+body {
+  margin: 0;
+}
+
+.btn {
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  text-align: center;
+  cursor: pointer;
+
+  transition: filter 0.3s ease;
+}
+
+.btn:hover {
+  filter: brightness(1.2);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--light);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--light);
+}
+
+.btn-success {
+  background-color: var(--success);
+  color: var(--light);
+}
+
+.btn-warning {
+  background-color: var(--warning);
+  color: var(--light);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: var(--light);
+}
+
+.btn-disabled {
+  cursor: unset;
+  background-color: transparent;
+  border: 1px solid var(--disabled);
+  color: var(--disabled);
+}
+
+.btn-disabled:hover {
+  filter: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--link);
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+a:hover {
+  filter: brightness(1.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial";
+}
