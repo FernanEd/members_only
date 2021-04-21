@@ -1,0 +1,22 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/stylesheets/main-style.css")
+    title Members Only
+  body 
+    header#main-header
+      h1#logo Members Only 
+      nav 
+        button.btn.btn-dark.btn-icon 🌙
+        ul 
+          li #[a(href="") #[button.btn.btn-secondary.btn-lg Log in]]
+          li #[a(href="") #[button.btn.btn-success.btn-lg Sign up]]
+
+    main#main-content
+      block content 
+
+    footer#main-footer
+      p Made by #[a(href="http://", target="_blank", rel="noopener noreferrer") FernanEd]. 2021.
