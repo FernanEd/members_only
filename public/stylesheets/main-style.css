@@ -159,6 +159,7 @@ a:hover {
 
 #main-content {
   padding: 0 10%;
+  color: var(--text);
 }
 
 #main-footer {
