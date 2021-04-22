@@ -85,6 +85,28 @@ app.get("/signup", (req, res) => {
   res.render("signup");
 });
 
+app.post("/signup", async (req, res, next) => {
+  const { first, last, username, password, confirm } = req.body;
+
+  if (password !== confirm) {
+    res.render("signup", { error: "Password confirmation does not match." });
+  }
+
+  try {
+    const hash = await bcrypt.hash(password, 10);
+    const created = await User.create({
+      name: { first, last },
+      username,
+      password: hash,
+    });
+    console.log(created);
+    res.redirect("/login");
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
 //START
 
 export default () => {

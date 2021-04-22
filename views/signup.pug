@@ -4,12 +4,21 @@ block content
   form.form.login-form(action="", method='POST')
     h2 Sign up
     .form-group 
+      label(for="") First name
+      input(type="text", name='first', required)
+    .form-group 
+      label(for="") Last name
+      input(type="text", name="last", required)
+    .form-group 
       label(for="") Username 
-      input(type="text", name='username')
+      input(type="text", name='username', required)
     .form-group 
       label(for="") Password 
-      input(type="password", name="password")
+      input(type="password", name="password", required)
     .form-group 
       label(for="") Confirm password
-      input(type="password", name="password")
+      input(type="password", name="confirm", required)
+    if error
+      p.error-msg #{error}
     button(type="submit", class='btn btn-success btn-full') Submit
+

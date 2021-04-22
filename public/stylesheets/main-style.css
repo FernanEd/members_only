@@ -4,12 +4,12 @@
   --bg2: #eee;
   --bg3: #ccc;
 
-  --primary: #38b;
+  --primary: #38c;
   --secondary: #999;
 
   --success: #3b8;
-  --danger: #b38;
-  --warning: #b83;
+  --danger: #c38;
+  --warning: #da3;
   --link: #3cc;
 
   --light: #fff;
@@ -245,6 +245,15 @@ a:hover {
   border-radius: 0.25rem;
   color: var(--text);
   font-size: 1rem;
+}
+
+.form-group input:focus {
+  border: 1px solid var(--primary);
+}
+
+.error-msg {
+  margin: 0.5rem 0;
+  color: var(--danger);
 }
 
 @media (max-width: 678px) {
