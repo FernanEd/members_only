@@ -47,23 +47,23 @@ passport.use(
     }
   })
 );
-// passport.serializeUser((user, done) => {
-//   done(null, user.id);
-// });
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = User.findById(id);
-    return done(null, user);
-  } catch (err) {
-    return done(err);
-  }
+
+passport.serializeUser<any, any>((req, user, done) => {
+  done(undefined, user.id);
 });
+
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err: Error, user: Express.User) => {
+    done(err, user);
+  });
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
@@ -79,6 +79,19 @@ app.get("/", (req, res) => {
 
 app.get("/login", (req, res) => {
   res.render("login");
+});
+
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  })
+);
+
+app.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
 });
 
 app.get("/signup", (req, res) => {

@@ -2,6 +2,9 @@ extend layout
 
 block content
 
+  if locals
+    p Welcome #{locals.currentUser}
+
   #messages-wrapper 
     for i in (Array(10))
       .message-item 

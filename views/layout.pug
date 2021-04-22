@@ -10,10 +10,14 @@ html(lang="en")
     header#main-header
       h1#logo Members Only 
       nav 
-        button#changeThemeBtn.btn.btn-dark.btn-icon 🌙
         ul 
-          li #[a(href="/login") #[button.btn.btn-secondary Log in]]
-          li #[a(href="/signup") #[button.btn.btn-success Sign up]]
+          if locals.currentUser
+            li #[strong Logged in as #{currentUser.username}]
+            li #[a(href="/logout") #[button.btn.btn-secondary Log out]]
+          else 
+            li #[a(href="/login") #[button.btn.btn-secondary Log in]]
+            li #[a(href="/signup") #[button.btn.btn-success Sign up]]
+        button#changeThemeBtn.btn.btn-dark.btn-icon 🌙
 
     main#main-content
       block content 

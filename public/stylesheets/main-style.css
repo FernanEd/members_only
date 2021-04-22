@@ -155,6 +155,7 @@ a:hover {
 #main-header nav ul {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
