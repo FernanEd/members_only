@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Handler } from "express";
 import mongoose from "mongoose";
 import path from "path";
 import config from "./utils/config";
@@ -18,11 +18,19 @@ import morgan from "morgan";
 import session from "express-session";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
+import MongoStore from "connect-mongo";
 
 import User, { IUser } from "./models/user";
 
 app.use(cors());
 
+const DBconnection = mongoose
+  .connect(config.MONGODB_URI, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+  })
+  .then((m) => m.connection.getClient());
 // PASSPORT AUTH & SESSIONS
 
 app.use(
@@ -30,6 +38,13 @@ app.use(
     secret: config.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      clientPromise: DBconnection,
+      collectionName: "sessions",
+    }),
+    cookie: {
+      maxAge: 7000 * 60 * 60 * 24, // 7 days
+    },
   })
 );
 passport.use(
@@ -78,9 +93,18 @@ import messageRouter from "./routers/messageRouter";
 import membershipRouter from "./routers/membershipRouter";
 import authRouter from "./routers/authRouter";
 
+const protectRoute: Handler = (req, res, next) => {
+  console.log(req.isAuthenticated());
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+};
+
 app.use("/", authRouter);
-app.use("/message", messageRouter);
-app.use("/membership", membershipRouter);
+app.use("/message", protectRoute, messageRouter);
+app.use("/membership", protectRoute, membershipRouter);
 
 // DEFAULT ROUTES
 
@@ -103,21 +127,7 @@ app.get("/", async (req, res, next) => {
 //START
 
 export default () => {
-  mongoose.connect(
-    config.MONGODB_URI,
-    {
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-    },
-    (err) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      app.listen(config.PORT, () => {
-        console.log(`Server started on port ${config.PORT}`);
-      });
-    }
-  );
+  app.listen(config.PORT, () => {
+    console.log(`Server started on port ${config.PORT}`);
+  });
 };
