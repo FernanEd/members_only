@@ -14,7 +14,10 @@ block content
         .message-item 
           .message-header 
             if locals.currentUser
-              p.message-author #{message.author.username}
+              if message.author.isAdmin == true
+                p.message-author #{message.author.username} ⭐️
+              else 
+                p.message-author #{message.author.username}
             else 
               p.message-author Anonymous 
             p.message-timestamp Posted on: #{(new Date(message.timestamp).toLocaleString("en-US", { timeZone: "UTC" }))}

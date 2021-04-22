@@ -94,7 +94,6 @@ import membershipRouter from "./routers/membershipRouter";
 import authRouter from "./routers/authRouter";
 
 const protectRoute: Handler = (req, res, next) => {
-  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     next();
   } else {
