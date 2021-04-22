@@ -1,0 +1,13 @@
+extend layout 
+
+block content
+
+  form.form.container-sm(action="", method='POST')
+    h2 Apply for a membership
+    .form-group 
+      label(for="") Secret code
+      input(type="text", name='code', required)
+    if error
+      p.error-msg #{error}
+    button(type="submit", class='btn btn-success btn-full') Submit
+

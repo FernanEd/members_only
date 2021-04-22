@@ -3,8 +3,10 @@ extend layout
 block content
 
 
-  if locals.currentUser
-    button.btn.btn-primary Create post
+  if locals.currentUser && locals.currentUser.membershipStatus == 'member'
+    #main-actions
+      a(href="/message/add") 
+        button.btn.btn-success.btn-lg Create a new post
 
   #messages-wrapper 
     for i in (Array(10))

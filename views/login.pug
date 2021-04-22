@@ -2,7 +2,7 @@ extend layout
 
 block content
   
-  form.form.login-form(action="", method='POST')
+  form.form.container-sm(action="", method='POST')
     h2 Log in 
     .form-group 
       label(for="") Username 
@@ -10,4 +10,6 @@ block content
     .form-group 
       label(for="") Password 
       input(type="password", name="password")
+    if error
+      p.error-msg #{error}
     button(type="submit", class='btn btn-success btn-full') Submit

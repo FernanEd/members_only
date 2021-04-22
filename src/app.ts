@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import path from "path";
 import config from "./utils/config";
+import bcrypt from "bcryptjs";
 
 const app = express();
 
@@ -15,7 +16,6 @@ app.set("view engine", "pug");
 import cors from "cors";
 import morgan from "morgan";
 import session from "express-session";
-import bcrypt from "bcryptjs";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 
@@ -74,53 +74,18 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 //ROUTERS
 
+import messageRouter from "./routers/messageRouter";
+import membershipRouter from "./routers/membershipRouter";
+import authRouter from "./routers/authRouter";
+
+app.use("/", authRouter);
+app.use("/message", messageRouter);
+app.use("/membership", membershipRouter);
+
 // DEFAULT ROUTES
 
 app.get("/", (req, res) => {
   res.render("index");
-});
-
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-  })
-);
-
-app.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
-});
-
-app.get("/signup", (req, res) => {
-  res.render("signup");
-});
-
-app.post("/signup", async (req, res, next) => {
-  const { first, last, username, password, confirm } = req.body;
-
-  if (password !== confirm) {
-    res.render("signup", { error: "Password confirmation does not match." });
-  }
-
-  try {
-    const hash = await bcrypt.hash(password, 10);
-    const created = await User.create({
-      name: { first, last },
-      username,
-      password: hash,
-    });
-    console.log(created);
-    res.redirect("/login");
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
 });
 
 //START

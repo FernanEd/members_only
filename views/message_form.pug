@@ -1,0 +1,16 @@
+extend layout 
+
+block content
+
+  form.form.container-sm(action="", method='POST')
+    h2 Make a new post
+    .form-group 
+      label(for="") Title
+      input(type="text", name='title', required)
+    .form-group 
+      label(for="") Content
+      input(type="textarea", name='content', required)
+    if error
+      p.error-msg #{error}
+    button(type="submit", class='btn btn-success btn-full') Submit
+

@@ -13,7 +13,7 @@ html(lang="en")
         ul 
           if locals.currentUser
             li #[strong Logged in as #{currentUser.username}]
-            li #[a(href="/logout") #[button.btn.btn-warning Get membership]]
+            li #[a(href="/membership") #[button.btn.btn-warning Get membership]]
             li #[a(href="/logout") #[button.btn.btn-secondary Log out]]
           else 
             li #[a(href="/login") #[button.btn.btn-secondary Log in]]

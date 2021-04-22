@@ -12,7 +12,7 @@ const MessageSchema = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
-  author: { type: Types.ObjectId, ref: "User" },
+  author: { type: Types.ObjectId, ref: "User", required: true },
 });
 
-export default model<IMessage>("User", MessageSchema);
+export default model<IMessage>("Message", MessageSchema);
