@@ -88,7 +88,11 @@ import Message from "./models/message";
 
 app.get("/", async (req, res, next) => {
   try {
-    const docs = await Message.find().lean().populate("author").exec();
+    const docs = await Message.find()
+      .sort({ timestamp: "desc" })
+      .lean()
+      .populate("author")
+      .exec();
     res.render("index", { messages: docs });
   } catch (err) {
     console.log(err);
