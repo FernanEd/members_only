@@ -1,4 +1,4 @@
-let currentTheme = "light";
+let currentTheme = localStorage.getItem("site_theme") || "light";
 
 const DARK_THEME = {
   "--text": "#fff",
@@ -21,11 +21,13 @@ btn.addEventListener("click", (e) => {
     btn.innerText = "🌞";
     btn.style.backgroundColor = "#eee";
     changeTheme(DARK_THEME);
+    localStorage.setItem("site_theme", "light");
   } else {
     currentTheme = "light";
     btn.innerText = "🌙";
     btn.style.backgroundColor = "#333";
     changeTheme(LIGHT_THEME);
+    localStorage.setItem("site_theme", "dark");
   }
 });
 
@@ -34,3 +36,5 @@ const changeTheme = (theme) => {
     document.documentElement.style.setProperty(key, val);
   }
 };
+
+btn.click();
