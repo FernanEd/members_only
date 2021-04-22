@@ -8,4 +8,9 @@ router
   .get(controller.getAddMessage)
   .post(controller.postAddMessage);
 
+router
+  .route("/delete/:id")
+  .get(controller.getDeleteMessage)
+  .post(controller.postDeleteMessage);
+
 export default router;

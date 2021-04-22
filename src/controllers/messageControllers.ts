@@ -19,3 +19,18 @@ export const postAddMessage: Handler = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getDeleteMessage: Handler = async (req, res, next) => {
+  res.render("message_delete");
+};
+
+export const postDeleteMessage: Handler = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const deleted = await Message.findByIdAndDelete(id);
+    res.redirect("/");
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
