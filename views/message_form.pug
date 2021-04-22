@@ -9,7 +9,7 @@ block content
       input(type="text", name='title', required)
     .form-group 
       label(for="") Content
-      input(type="textarea", name='content', required)
+      textarea(name="content", cols="30", rows="10") 
     if error
       p.error-msg #{error}
     button(type="submit", class='btn btn-success btn-full') Submit

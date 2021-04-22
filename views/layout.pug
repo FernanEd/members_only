@@ -8,12 +8,14 @@ html(lang="en")
     title Members Only
   body 
     header#main-header
-      h1#logo Members Only 
+      a(href="/") 
+        h1#logo Members Only 
       nav 
         ul 
           if locals.currentUser
             li #[strong Logged in as #{currentUser.username}]
-            li #[a(href="/membership") #[button.btn.btn-warning Get membership]]
+            if locals.currentUser.membershipStatus !== 'member'
+              li #[a(href="/membership") #[button.btn.btn-warning Get membership]]
             li #[a(href="/logout") #[button.btn.btn-secondary Log out]]
           else 
             li #[a(href="/login") #[button.btn.btn-secondary Log in]]

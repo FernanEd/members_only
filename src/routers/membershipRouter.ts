@@ -4,7 +4,7 @@ import * as controller from "../controllers/membershipControllers";
 const router = Router();
 
 router
-  .route("/membership")
+  .route("/")
   .get(controller.getMembershipForm)
   .post(controller.postMembershipForm);
 

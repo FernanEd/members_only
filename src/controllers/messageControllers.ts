@@ -6,14 +6,14 @@ export const getAddMessage: Handler = async (req, res, next) => {
 };
 
 export const postAddMessage: Handler = async (req, res, next) => {
-  const { title, message } = req.body;
+  const { title, content } = req.body;
   try {
     const created = await Message.create({
       title,
-      message,
+      content,
       author: req.user?.id,
     });
-    res.redirect("index");
+    res.redirect("/");
   } catch (err) {
     console.log(err);
     next(err);

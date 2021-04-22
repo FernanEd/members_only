@@ -84,8 +84,16 @@ app.use("/membership", membershipRouter);
 
 // DEFAULT ROUTES
 
-app.get("/", (req, res) => {
-  res.render("index");
+import Message from "./models/message";
+
+app.get("/", async (req, res, next) => {
+  try {
+    const docs = await Message.find().lean().populate("author").exec();
+    res.render("index", { messages: docs });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
 });
 
 //START
