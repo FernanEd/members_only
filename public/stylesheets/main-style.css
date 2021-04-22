@@ -74,7 +74,7 @@ body {
 
 .btn-warning {
   background-color: var(--warning);
-  color: var(--light);
+  color: var(--dark);
 }
 
 .btn-danger {
@@ -212,6 +212,12 @@ a:hover {
 .message-timestamp {
   color: var(--secondary);
   text-align: right;
+}
+
+.message-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .form {

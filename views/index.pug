@@ -2,8 +2,9 @@ extend layout
 
 block content
 
-  if locals
-    p Welcome #{locals.currentUser}
+
+  if locals.currentUser
+    button.btn.btn-primary Create post
 
   #messages-wrapper 
     for i in (Array(10))
@@ -11,4 +12,6 @@ block content
         .message-header 
           p.message-author Anonymous  
           p.message-timestamp Posted on: 17/08/2020
-        p.message-title Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit odit ipsa sequi nisi nemo, accusamus illo esse quisquam architecto tempora vitae harum tenetur voluptatum? Veniam quae fugit tempore consectetur ullam.
+        .message-body
+          h3.message-title Lorem ipsum dolor.
+          p.message-text Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit odit ipsa sequi nisi nemo, accusamus illo esse quisquam architecto tempora vitae harum tenetur voluptatum? Veniam quae fugit tempore consectetur ullam.

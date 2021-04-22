@@ -22,6 +22,9 @@ import { Strategy as LocalStrategy } from "passport-local";
 import User, { IUser } from "./models/user";
 
 app.use(cors());
+
+// PASSPORT AUTH & SESSIONS
+
 app.use(
   session({
     secret: config.SESSION_SECRET,
