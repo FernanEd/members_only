@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import path from "path";
+import config from "./utils/config";
 
 const app = express();
 
@@ -13,9 +14,56 @@ app.set("view engine", "pug");
 
 import cors from "cors";
 import morgan from "morgan";
-import config from "./utils/config";
+import session from "express-session";
+import bcrypt from "bcryptjs";
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
+
+import User, { IUser } from "./models/user";
 
 app.use(cors());
+app.use(
+  session({
+    secret: config.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username: username });
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" });
+      }
+      const match = await bcrypt.compare(password, user.password);
+      if (match) {
+        return done(null, user);
+      } else {
+        return done(null, false, { message: "Incorrect password" });
+      }
+    } catch (err) {
+      return done(err);
+    }
+  })
+);
+// passport.serializeUser((user, done) => {
+//   done(null, user.id);
+// });
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = User.findById(id);
+    return done(null, user);
+  } catch (err) {
+    return done(err);
+  }
+});
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
@@ -27,6 +75,14 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.get("/signup", (req, res) => {
+  res.render("signup");
 });
 
 //START

@@ -1,7 +1,11 @@
 extend layout 
 
 block content
-  h1 Lol
-  button.btn.btn-primary Lol
-  button.btn.btn-disabled disabled
-  a(href="") Lol.com 
+
+  #messages-wrapper 
+    for i in (Array(10))
+      .message-item 
+        .message-header 
+          p.message-author Anonymous  
+          p.message-timestamp Posted on: 17/08/2020
+        p.message-title Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit odit ipsa sequi nisi nemo, accusamus illo esse quisquam architecto tempora vitae harum tenetur voluptatum? Veniam quae fugit tempore consectetur ullam.

@@ -1,0 +1,13 @@
+extend layout 
+
+block content
+  
+  form.form.login-form(action="", method='POST')
+    h2 Log in 
+    .form-group 
+      label(for="") Username 
+      input(type="text", name='username')
+    .form-group 
+      label(for="") Password 
+      input(type="password", name="password")
+    button(type="submit", class='btn btn-success btn-full') Submit

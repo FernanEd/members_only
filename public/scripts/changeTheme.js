@@ -18,11 +18,13 @@ const btn = document.querySelector("#changeThemeBtn");
 btn.addEventListener("click", (e) => {
   if (currentTheme === "light") {
     currentTheme = "dark";
-    e.target.innerText = "🌞";
+    btn.innerText = "🌞";
+    btn.style.backgroundColor = "#eee";
     changeTheme(DARK_THEME);
   } else {
     currentTheme = "light";
-    e.target.innerText = "🌙";
+    btn.innerText = "🌙";
+    btn.style.backgroundColor = "#333";
     changeTheme(LIGHT_THEME);
   }
 });
