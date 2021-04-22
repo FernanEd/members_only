@@ -3,10 +3,14 @@ extend layout
 block content
 
 
-  if locals.currentUser && locals.currentUser.membershipStatus == 'member'
+  if locals.currentUser 
     #main-actions
-      a(href="/message/add") 
-        button.btn.btn-success.btn-lg Create a new post
+      if locals.currentUser.membershipStatus == 'member'
+        a(href="/message/add") 
+          button.btn.btn-success.btn-lg Create a new post
+      else 
+        p Become a member to make posts.
+
 
   #messages-wrapper 
     if messages
